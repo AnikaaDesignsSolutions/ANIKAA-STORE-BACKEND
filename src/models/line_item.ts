@@ -6,8 +6,10 @@ interface MaterialDesignData {
   design_preference: string;
   design_images: string[]; // Existing design images array
   measurement_values: Record<string, number>; // Existing measurements object
-  measurement_dress_images: string[]; // New: Stores URLs for dress images
-  attach_lining: boolean; // New: Checkbox to determine if lining is attached
+  measurement_dress_images: string[]; // Stores URLs for dress images
+  attach_lining: boolean; // Checkbox to determine if lining is attached
+  design_preference_audio: string | null; // Stores URL for audio (nullable)
+  design_preference_video: string | null; // Stores URL for video (nullable)
 }
 
 @Entity()
@@ -33,7 +35,9 @@ export class LineItem extends MedusaLineItem {
   //       "https://example.com/dress1.jpg",
   //       "https://example.com/dress2.jpg"
   //     ],
-  //     attach_lining: true // Indicates that lining is attached
+  //     attach_lining: true, // Indicates that lining is attached
+  //     design_preference_audio: "https://example.com/audio1.mp3", // Stores audio URL
+  //     design_preference_video: "https://example.com/video1.mp4"  // Stores video URL
   //   },
   //   "https://example.com/material2.jpg": {
   //     design_preference: "Another Design",
@@ -45,7 +49,9 @@ export class LineItem extends MedusaLineItem {
   //       waist: 34
   //     },
   //     measurement_dress_images: [],
-  //     attach_lining: false // No lining attached
+  //     attach_lining: false, // No lining attached
+  //     design_preference_audio: null, // No audio for this design
+  //     design_preference_video: "https://example.com/video2.mp4"  // Stores video URL
   //   }
   // };
 }

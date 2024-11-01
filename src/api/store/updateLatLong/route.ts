@@ -27,8 +27,9 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   }
 
   // Validate that newAddress has the required fields
-  const { first_name, last_name, city, country_code, address_1, postal_code, company } = newAddress;
-  if (!first_name || !last_name || !city || !country_code || !address_1 || !postal_code || !company) {
+  const { first_name, city, country_code, address_1, postal_code, company } = newAddress;
+  // last_name and address_2 are now optional
+  if (!first_name || !city || !country_code || !address_1 || !postal_code || !company) {
     return res.status(400).json({
       message: "Missing required fields in address",
     });

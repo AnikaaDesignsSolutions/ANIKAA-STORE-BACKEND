@@ -1,4 +1,3 @@
-// Import LineItemService from MedusaJS for handling line item operations
 import { LineItemService } from "@medusajs/medusa";
 import type { MedusaRequest, MedusaResponse } from "@medusajs/medusa";
 
@@ -11,6 +10,8 @@ interface UpdateLineItemRequestBody {
   measurement_values?: Record<string, number>;
   measurement_dress_images?: string[]; // New field for dress images
   attach_lining?: boolean; // New field for attach_lining checkbox
+  design_preference_audio?: string | null; // New field for audio URL
+  design_preference_video?: string | null; // New field for video URL
 }
 
 // Extend the input type to handle material_design_data structure
@@ -18,8 +19,10 @@ type MaterialDesignData = {
   design_preference?: string;
   design_images?: string[];
   measurement_values?: Record<string, number>;
-  measurement_dress_images?: string[]; // New field for dress images
-  attach_lining?: boolean; // New field for attach_lining checkbox
+  measurement_dress_images?: string[];
+  attach_lining?: boolean;
+  design_preference_audio?: string | null; // New field for audio URL
+  design_preference_video?: string | null; // New field for video URL
 };
 
 // Define a POST request handler to update line items
@@ -29,7 +32,17 @@ export const POST = async (req: MedusaRequest<UpdateLineItemRequestBody>, res: M
 
   try {
     // Extract data from the request body
-    const { id, material_image_url, design_preference, design_images, measurement_values, measurement_dress_images, attach_lining } = req.body;
+    const {
+      id,
+      material_image_url,
+      design_preference,
+      design_images,
+      measurement_values,
+      measurement_dress_images,
+      attach_lining,
+      design_preference_audio,
+      design_preference_video
+    } = req.body;
 
     console.log("id: ", id);
     console.log("material_image_url: ", material_image_url);
@@ -38,6 +51,8 @@ export const POST = async (req: MedusaRequest<UpdateLineItemRequestBody>, res: M
     console.log("measurement_values: ", measurement_values);
     console.log("measurement_dress_images: ", measurement_dress_images);
     console.log("attach_lining: ", attach_lining);
+    console.log("design_preference_audio: ", design_preference_audio);
+    console.log("design_preference_video: ", design_preference_video);
 
     // Prepare the material design data object
     const updateMaterialData: MaterialDesignData = {};
@@ -60,6 +75,14 @@ export const POST = async (req: MedusaRequest<UpdateLineItemRequestBody>, res: M
 
     if (attach_lining !== undefined) {
       updateMaterialData.attach_lining = attach_lining;
+    }
+
+    if (design_preference_audio !== undefined) {
+      updateMaterialData.design_preference_audio = design_preference_audio;
+    }
+
+    if (design_preference_video !== undefined) {
+      updateMaterialData.design_preference_video = design_preference_video;
     }
 
     let lineItem;

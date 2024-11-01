@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm"
 
-export class AddMaterialImages1728480163269 implements MigrationInterface {
+export class CreateCustomerProductMeasurement1730106818576 implements MigrationInterface {
+
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             ALTER TABLE "customer" 
@@ -14,5 +15,4 @@ export class AddMaterialImages1728480163269 implements MigrationInterface {
             DROP COLUMN "customer_product_measurement";
         `);
     }
-
 }
