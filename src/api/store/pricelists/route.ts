@@ -39,7 +39,9 @@ export async function GET(
               return {
                 product_id: variant.product_id,
                 product_title: product.title,  
-                product_thumbnail: product.thumbnail,  
+                product_thumbnail: product.thumbnail,
+                handle: product.handle,
+                variant_title: variant.title,
                 prices: relevantPrices,
               };
             })

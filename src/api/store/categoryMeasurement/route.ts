@@ -11,10 +11,16 @@ interface CategoryAdditionalRequestBody {
   measurements: string;
 }
 
+const MEDUSA_BACKEND_URL = process.env.MEDUSA_BACKEND_URL;
+
+if (!MEDUSA_BACKEND_URL) {
+  throw new Error("MEDUSA_BACKEND_URL is not defined in .env");
+}
+
 // Helper function to fetch child category IDs
 const fetchChildCategoryIds = async (category_id: string): Promise<string[]> => {
   try {
-    const response = await axios.get(`http://localhost:9000/store/childrenCategories?category_id=${category_id}`);
+    const response = await axios.get(`${MEDUSA_BACKEND_URL}/store/childrenCategories?category_id=${category_id}`);
     return response.data.child_category_ids || [];
   } catch (error) {
     console.error("Error fetching child category IDs:", error);
